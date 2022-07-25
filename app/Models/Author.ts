@@ -1,20 +1,13 @@
 import { DateTime } from 'luxon'
 import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 
-export default class Collaborator extends BaseModel {
-  
+export default class Author extends BaseModel {
   @column({ isPrimary: true })
   public id: number
 
   @column()
   public name: String
-
-  @column()
-  public username: String
-
-  @column()
-  public password: String
-
+  
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
 

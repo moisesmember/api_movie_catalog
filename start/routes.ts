@@ -18,8 +18,7 @@
 |
 */
 
-import Route from '@ioc:Adonis/Core/Route'
+import './routes/collaborators_router'
+import './routes/imagem_router'
+import './routes/movie_router'
 
-Route.get('/', async () => {
-  return { hello: 'world' }
-})
