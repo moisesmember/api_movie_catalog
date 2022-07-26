@@ -7,13 +7,14 @@ export default class extends BaseSchema {
     this.schema.createTable(this.tableName, (table) => {
       table.increments('id')
       table.string('name')
-      table.string('description')
-      table.string('sinopse')
-      table.string('authors')
+      table.string('genre')
+      table.text('description')
+      table.text('sinopse')
+      table.text('authors')
       table.string('url')
       table.integer('year')
       table.integer('avaliation')
- 
+     
       table.bigint('collaborator_id').unsigned().references("collaborators.id").onDelete('CASCADE').onUpdate('CASCADE')
 
       /**

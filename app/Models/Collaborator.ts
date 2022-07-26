@@ -1,7 +1,11 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column, HasOne, hasOne } from '@ioc:Adonis/Lucid/Orm'
+import Movie from './Movie'
 
 export default class Collaborator extends BaseModel {
+  
+  @hasOne(() => Movie)
+  public movie: HasOne<typeof Movie>
   
   @column({ isPrimary: true })
   public id: number

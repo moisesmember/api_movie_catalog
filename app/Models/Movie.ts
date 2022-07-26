@@ -1,10 +1,8 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column, HasMany, hasMany } from '@ioc:Adonis/Lucid/Orm'
-import Collaborator from './Collaborator'
-
+import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 export default class Movie extends BaseModel {
-  @hasMany(() => Collaborator)
-  public collaboratorId: HasMany<typeof Collaborator>
+  //@hasMany(() => Collaborator)
+  //public collaboratorId: HasMany<typeof Collaborator>
 
   @column({ isPrimary: true })
   public id: number
@@ -25,6 +23,9 @@ export default class Movie extends BaseModel {
   public url: string
 
   @column()
+  public genre: string
+
+  @column()
   public year: number
 
   @column()
@@ -32,6 +33,9 @@ export default class Movie extends BaseModel {
   
   @column()
   public collaborator_id: number
+
+  //@belongsTo(() => Collaborator)
+  //public collaboratorId: HasOne<typeof Collaborator>
 
   @column.dateTime({ autoCreate: true })
   public createdAt: DateTime
