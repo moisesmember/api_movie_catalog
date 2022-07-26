@@ -13,20 +13,20 @@ export default class Movie extends BaseModel {
   public name: string
 
   @column()
-  public coverurl: string
+  public description: string
 
   @column()
-  public coveralt: string
+  public sinopse: string
+
+  @column()
+  public authors: string
 
   @column()
   public year: number
 
   @column()
-  public relevance: number
+  public avaliation: number
   
-  @column()
-  public parts: number
-
   @column()
   public collaborator_id: number
 
