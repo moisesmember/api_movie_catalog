@@ -22,6 +22,9 @@ export default class Movie extends BaseModel {
   public authors: string
 
   @column()
+  public url: string
+
+  @column()
   public year: number
 
   @column()
