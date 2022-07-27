@@ -87,7 +87,7 @@ node ace list:routes
   PUT|PATCH    /api/movies/:id
   DELETE       /api/movies/:id
 ```
-hub.com/Hospital-Adventista-de-Manaus/face-rekognition-aws/blob/main/example/data/RESULTADO.PNG)
+
 
 ## Referência
 
