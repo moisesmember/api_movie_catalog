@@ -1,5 +1,6 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
 import Collaborator from 'App/Models/Collaborator';
+const { forEach } = require('p-iteration');
 
 export default class CollaboratorsController {
     public async store({request, response} : HttpContextContract){        
@@ -46,6 +47,29 @@ export default class CollaboratorsController {
         return {
             message: 'Rota de atualização acionada',
             data: collaborator
+        }
+    }
+
+    public async createDatas({response} : HttpContextContract){
+
+        const data = [
+            { id: 11, name: `Maria Eduarda`, username: `duda`, password: `123` },
+            { id: 12, name: `João Pedro`, username: `joao.pedro`, password: `123` },
+            { id: 13, name: `Guilherem`, username: `gui.marcos`, password: `123` },
+            { id: 14, name: `Maria Vitória`, username: `vica`, password: `123` },
+            { id: 15, name: `Moises Santos`, username: `mouses`, password: `123` },
+            { id: 16, name: `Pedro Fernandes`, username: `fernandes`, password: `123` },
+            { id: 17, name: `Alice Maria`, username: `alica`, password: `123` },
+        ]
+
+        await forEach( data, async (users) => {
+            await Collaborator.create(users)
+        } );
+
+        response.status(201)
+
+        return {
+            message: 'Usuarios adicionados',
         }
     }
 }

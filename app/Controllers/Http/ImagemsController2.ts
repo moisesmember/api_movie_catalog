@@ -15,23 +15,16 @@ export default class ImagemsController {
     public async store({request, response} : HttpContextContract){
         const body = request.body();        
         const image = request.file('imagem', this.validationOptions)
-     console.log( `salvou imagem` )   
+        
         if(image){ // Verifica se a imagem veio
             const imageName = `${uuiddv4()}.${image.extname}`
             // Move a nova imagem para pasta uploads
-            /*await image.move(Application.tmpPath('uploads'),{
+            await image.move(Application.tmpPath('uploads'),{
                 name: imageName
-            })  */          
+            })            
             /*await image.moveToDisk('../../../files/image', {
                 name: imageName
             })*/
-
-            try {
-                const img = await image.moveToDisk('oi', {}, 's3')
-                console.log( img )
-            } catch (error) {
-                console.log( error )
-            }
 
             body.imagem = imageName
         }

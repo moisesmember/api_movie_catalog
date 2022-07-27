@@ -11,7 +11,7 @@ export default class extends BaseSchema {
       table.text('description')
       table.text('sinopse')
       table.text('authors')
-      table.string('url')
+      table.text('url')
       table.integer('year')
       table.integer('avaliation')
      
