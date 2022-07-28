@@ -76,17 +76,25 @@ export default class CollaboratorsController {
 
     public async login({request, response} : HttpContextContract){
         const body = request.body();
-        const user = await Database.rawQuery(` SELECT 1  login                                                                                                                                                                                                                                                                                  
+        const user = await Database.rawQuery(` SELECT 1  login                                                                                                                                                                                                                                                                                 
                                                         FROM collaborators                                                                                                                                                                                                                       
                                                     WHERE EXISTS (                                                                                                                                                                                              
                                                                 SELECT DISTINCT c.id FROM collaborators c WHERE c.username = '${body.username}' and c.password = '${body.password}'          
                                                                 )                                                                                                                                                                                                                                                
                                                     UNION                                                                                                                                                                                                                                                                 
-                                                    SELECT 0 login                                                                                                                                                                                                                                             
+                                                    SELECT 0 login                                                                                                                                                                                                                                           
                                                         FROM collaborators                                                                                                                                                                                                                                             
                                                     WHERE NOT EXISTS (                                                                                                                                                                                                                                
                                                                 SELECT DISTINCT c.id FROM collaborators c WHERE c.username = '${body.username}' and c.password = '${body.password}'
                                                     ) `)                              
+        response.send(user.rows)
+    }
+
+    public async findCollaboratorByUsername({request, response} : HttpContextContract){
+        const body = request.body();
+        const user = await Database.rawQuery(` SELECT id, name, username                                                                                                                                                                                                                                                                                 
+                                                        FROM collaborators                                                                                                                                                                                                                       
+                                                    WHERE username = '${body.username}' and password = '${body.password}'`)                              
         response.send(user.rows)
     }
 }
