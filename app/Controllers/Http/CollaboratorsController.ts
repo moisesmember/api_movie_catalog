@@ -1,4 +1,5 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext';
+import Database from '@ioc:Adonis/Lucid/Database';
 import Collaborator from 'App/Models/Collaborator';
 const { forEach } = require('p-iteration');
 
@@ -71,5 +72,21 @@ export default class CollaboratorsController {
         return {
             message: 'Usuarios adicionados',
         }
+    }
+
+    public async login({request, response} : HttpContextContract){
+        const body = request.body();
+        const user = await Database.rawQuery(` SELECT 1  login                                                                                                                                                                                                                                                                                  
+                                                        FROM collaborators                                                                                                                                                                                                                       
+                                                    WHERE EXISTS (                                                                                                                                                                                              
+                                                                SELECT DISTINCT c.id FROM collaborators c WHERE c.username = '${body.username}' and c.password = '${body.password}'          
+                                                                )                                                                                                                                                                                                                                                
+                                                    UNION                                                                                                                                                                                                                                                                 
+                                                    SELECT 0 login                                                                                                                                                                                                                                             
+                                                        FROM collaborators                                                                                                                                                                                                                                             
+                                                    WHERE NOT EXISTS (                                                                                                                                                                                                                                
+                                                                SELECT DISTINCT c.id FROM collaborators c WHERE c.username = '${body.username}' and c.password = '${body.password}'
+                                                    ) `)                              
+        response.send(user.rows)
     }
 }
