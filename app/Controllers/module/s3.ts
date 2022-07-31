@@ -1,10 +1,14 @@
 import * as AWS from "aws-sdk";
 import { v4 as uuid } from "uuid";
+import Env from '@ioc:Adonis/Core/Env'
 
 const s3 = new AWS.S3({
-  region: process.env.AWS_REGION,
+  /*region: process.env.AWS_REGION,
   secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-  accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+  accessKeyId: process.env.AWS_ACCESS_KEY_ID,  */
+  region: Env.get('S3_REGION'),
+  secretAccessKey: Env.get('S3_SECRET'),
+  accessKeyId: Env.get('S3_KEY'),
 });
 
 export const uploadToS3Bucket = async (
@@ -18,6 +22,8 @@ export const uploadToS3Bucket = async (
     let fileType = "image/jpg";
 
     const name = uuid() + "." + extname;
+    console.log( file )
+    console.log( `type: ${type}\nsubtype: ${subtype}\nextname: ${extname}` );
 
     let buffer = Buffer.from(JSON.stringify(file), "utf-8");
 

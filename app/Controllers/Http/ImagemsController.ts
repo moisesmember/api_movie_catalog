@@ -15,7 +15,7 @@ export default class ImagemsController {
     public async store({request, response} : HttpContextContract){
         const body = request.body();        
         const image = request.file('imagem', this.validationOptions)
-     console.log( `salvou imagem` )   
+   
         if(image){ // Verifica se a imagem veio
             const imageName = `${uuiddv4()}.${image.extname}`
             // Move a nova imagem para pasta uploads
@@ -28,6 +28,7 @@ export default class ImagemsController {
 
             try {
                 const img = await image.moveToDisk('oi', {}, 's3')
+                console.log( `Result` )
                 console.log( img )
             } catch (error) {
                 console.log( error )

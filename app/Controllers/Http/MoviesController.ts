@@ -1,4 +1,7 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { base64 } from '@ioc:Adonis/Core/Helpers';
+import { uploadToS3Bucket } from '../module/s3';
+
 import Database from '@ioc:Adonis/Lucid/Database';
 import Collaborator from 'App/Models/Collaborator';
 import Movie from 'App/Models/Movie';
@@ -7,9 +10,19 @@ import Movie from 'App/Models/Movie';
 const { forEach } = require('p-iteration');
 
 export default class MoviesController {
+    private validationOptions = {
+        types: ['image'],
+        size: '2mb',
+        extnames: ['jpg', 'png', 'gif'],
+    }
+
     public async store({request, response}: HttpContextContract){
         const body = request.body();
-        
+        const image = request.file('url', this.validationOptions)
+
+        //const encoded = base64.encode( body.url , 'binary')
+        //await uploadToS3Bucket( encoded, `app-movie-catalog` ); 
+
         await Collaborator.findOrFail(body.collaborator_id)        
         const movie = await Movie.create( body )
 
