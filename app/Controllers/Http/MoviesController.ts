@@ -81,6 +81,15 @@ export default class MoviesController {
         response.send(movie.rows);
     }
 
+    public async destroy({params, response}: HttpContextContract){
+        const movie = await Movie.findOrFail(params.id);
+        await movie.delete()
+        response.send({
+            message: 'Rota de exclusão acionada',
+            data: movie
+        });
+    }
+
     public async createDatas({response} : HttpContextContract){
 
         const data = [
